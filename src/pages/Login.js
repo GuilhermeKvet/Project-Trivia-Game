@@ -15,7 +15,9 @@ class Login extends React.Component {
 
   habilitaBtn = () => {
     const { name, email } = this.state;
-    if (name.length > 0 && email.length > 0) return false;
+    if (name.length > 0 && email.length > 0) {
+      return false;
+    }
     return true;
   }
 
