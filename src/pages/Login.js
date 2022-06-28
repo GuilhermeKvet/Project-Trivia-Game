@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { fetchApi } from '../actions';
 
 class Login extends React.Component {
   state = {
@@ -15,6 +17,13 @@ class Login extends React.Component {
     const { name, email } = this.state;
     if (name.length > 0 && email.length > 0) return false;
     return true;
+  }
+
+  receiveToken = async () => {
+    const { history } = this.props;
+    const response = await fetchApi();
+    localStorage.setItem('token', response.token);
+    history.push('/game');
   }
 
   render() {
@@ -47,6 +56,7 @@ class Login extends React.Component {
           type="button"
           data-testid="btn-play"
           disabled={ this.habilitaBtn() }
+          onClick={ this.receiveToken }
         >
           Play
         </button>
@@ -54,5 +64,9 @@ class Login extends React.Component {
     );
   }
 }
+
+Login.propTypes = {
+  history: PropTypes.objectOf.isRequired,
+};
 
 export default Login;
