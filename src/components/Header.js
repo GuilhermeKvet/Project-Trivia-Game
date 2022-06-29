@@ -5,14 +5,14 @@ import PropTypes from 'prop-types';
 
 class Header extends React.Component {
   getGravatarHash = () => {
-    const { user: { email } } = this.props;
+    const { player: { email } } = this.props;
     const hashGravatar = md5(email).toString();
     const url = `https://www.gravatar.com/avatar/${hashGravatar}`;
     return url;
   }
 
   render() {
-    const { user: { name } } = this.props;
+    const { player: { name, score } } = this.props;
     return (
       <div>
         <img
@@ -21,18 +21,18 @@ class Header extends React.Component {
           alt="Avatar"
         />
         <p data-testid="header-player-name">{ name }</p>
-        <p data-testid="header-score">0</p>
+        <p data-testid="header-score">{ score }</p>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  player: state.player,
 });
 
 Header.propTypes = {
-  user: PropTypes.objectOf.isRequired,
+  player: PropTypes.objectOf.isRequired,
 };
 
 export default connect(mapStateToProps)(Header);

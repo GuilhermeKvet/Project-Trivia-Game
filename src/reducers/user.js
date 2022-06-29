@@ -1,8 +1,9 @@
-import { ADD_USER } from '../actions';
+import { ADD_USER, SCORE_USER } from '../actions';
 
 const INICIAL_STATE = {
   name: '',
   email: '',
+  score: 0,
 };
 
 const userReducer = (state = INICIAL_STATE, action) => {
@@ -12,6 +13,11 @@ const userReducer = (state = INICIAL_STATE, action) => {
       ...state,
       name: action.name,
       email: action.email,
+    };
+  case SCORE_USER:
+    return {
+      ...state,
+      score: state.score + action.score,
     };
   default:
     return state;

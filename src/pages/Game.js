@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { scoreUser } from '../actions';
 
 class Game extends React.Component {
   state = {
@@ -56,8 +58,24 @@ class Game extends React.Component {
     return arr;
   }
 
-  styleHandleClick = () => {
+  handleClick = ({ target }) => {
+    const TEN = 10;
+    const three = 3;
+    const { dispatch } = this.props;
+    const { triviaGame: { results }, countTimer, count } = this.state;
+    const { difficulty } = results[count];
+    let score = 0;
     this.setState({ respondida: true });
+    if (target.name === 'correct') {
+      if (difficulty === 'hard') {
+        score = TEN + (countTimer * three);
+      } else if (difficulty === 'medium') {
+        score = TEN + (countTimer * 2);
+      } else {
+        score = TEN + countTimer;
+      }
+    }
+    dispatch(scoreUser(score));
   };
 
   triviaGame = () => {
@@ -79,7 +97,7 @@ class Game extends React.Component {
                   data-testid="correct-answer"
                   key={ index }
                   name="correct"
-                  onClick={ this.styleHandleClick }
+                  onClick={ this.handleClick }
                   style={ respondida ? { border: '3px solid rgb(6, 240, 15)' } : {} }
                   disabled={ disableBtn }
                 >
@@ -93,7 +111,7 @@ class Game extends React.Component {
                 key={ index }
                 name="incorrect"
                 data-testid={ `wrong-answer-${index}` }
-                onClick={ this.styleHandleClick }
+                onClick={ this.handleClick }
                 style={ respondida ? { border: '3px solid red' } : {} }
                 disabled={ disableBtn }
               >
@@ -119,8 +137,13 @@ class Game extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+});
+
 Game.propTypes = {
   history: PropTypes.objectOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default Game;
+export default connect(mapStateToProps)(Game);
