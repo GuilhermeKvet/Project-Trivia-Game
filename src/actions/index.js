@@ -7,7 +7,8 @@ export const fetchApi = async () => {
   return data;
 };
 
-export const addUser = (user) => ({
+export const addUser = (name, email) => ({
   type: ADD_USER,
-  user,
+  name,
+  email,
 });

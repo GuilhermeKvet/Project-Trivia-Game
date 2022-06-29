@@ -1,13 +1,13 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { render, screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import Login from '../../pages/Login';
 import renderWithRouterAndRedux from '../helpers/renderWithRouterAndRedux'
 import App from '../../App';
 
 describe("Testando a tela de login", () => {
   test('testa se é possível escrever o email da pessoa jogadora', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const inputName = screen.getByLabelText(/nome/i);
     userEvent.type(inputName, 'nome da pessoa');
     expect(inputName).toBeInTheDocument();
@@ -15,7 +15,7 @@ describe("Testando a tela de login", () => {
   });
   
   test('A pessoa que joga deve conseguir escrever seu email no input de email', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const inputEmail = screen.getByLabelText(/E-mail/i);
     userEvent.type(inputEmail, 'alguem@algumacoisa.com');
     expect(inputEmail).toBeInTheDocument();
@@ -23,13 +23,13 @@ describe("Testando a tela de login", () => {
   });
 
   test('Será validado se o botão "Play" está desabilitado quando a pessoa jogadora não preencher nenhum campo', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const buttonPlay = screen.getByRole('button', { name: /play/i })
     expect(buttonPlay.disabled).toBe(true);
   });
 
   test('Testa se o botão está desativado quando o usuário escreve apenas o nome', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const inputName = screen.getByLabelText(/nome/i);
     expect(inputName).toBeInTheDocument();
     userEvent.type(inputName, 'junior');
@@ -39,7 +39,7 @@ describe("Testando a tela de login", () => {
   });
 
   test('Testa se o botão está desativado quando o usuário escreve apenas o email', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const inputEmail = screen.getByLabelText(/e-mail/i);
     expect(inputEmail).toBeInTheDocument();
     userEvent.type(inputEmail, 'junior@junior.com');
@@ -49,7 +49,7 @@ describe("Testando a tela de login", () => {
   });
 
   test('Testa se o botão está ativado quando o usuário escreve o email e o name', () => {
-    render(<Login />);
+    renderWithRouterAndRedux(<Login />);
     const inputName = screen.getByLabelText(/nome/i);
     const inputEmail = screen.getByLabelText(/e-mail/i);
     expect(inputName).toBeInTheDocument();
@@ -70,7 +70,11 @@ describe("Testando a tela de login", () => {
     userEvent.type(inputEmail, 'junior@junior.com');
     expect(buttonPlay.disabled).toBe(false);
     userEvent.click(buttonPlay);
-    expect(history.push()).toHaveBeenCalled();
+    waitFor(() => {
+      expect(
+        expect(history.location.pathname)
+      ).toBe('/gamedewd');
+    }, {setTimeout: 3000});
   });
 
   test('testa se a tela de configurações possui um título', () => {

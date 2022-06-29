@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fetchApi } from '../actions';
+import { connect } from 'react-redux';
+import { fetchApi, addUser } from '../actions';
 
 class Login extends React.Component {
   state = {
-    name: '',
     email: '',
+    name: '',
   }
 
   handleChange = ({ target }) => {
@@ -22,9 +23,11 @@ class Login extends React.Component {
   }
 
   receiveToken = async () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    const { email, name } = this.state;
     const response = await fetchApi();
     localStorage.setItem('token', response.token);
+    dispatch(addUser(name, email));
     history.push('/game');
   }
 
@@ -77,6 +80,7 @@ class Login extends React.Component {
 
 Login.propTypes = {
   history: PropTypes.objectOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default Login;
+export default connect()(Login);
