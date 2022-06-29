@@ -4,10 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 class Header extends React.Component {
-  componentDidMount() {
-    console.log(md5('dihreyh@gmail.com').toString());
-  }
-
   getGravatarHash = () => {
     const { user: { email } } = this.props;
     const hashGravatar = md5(email).toString();
