@@ -6,6 +6,7 @@ class Game extends React.Component {
   state = {
     triviaGame: '',
     count: 0,
+    respondida: false,
   }
 
   async componentDidMount() {
@@ -35,8 +36,12 @@ class Game extends React.Component {
     return arr;
   }
 
+  styleHandleClick = () => {
+    this.setState({ respondida: true });
+  };
+
   triviaGame = () => {
-    const { triviaGame: { results }, count } = this.state;
+    const { triviaGame: { results }, count, respondida } = this.state;
     const objPergunta = results[count];
     const allAnswers = [...objPergunta.incorrect_answers, objPergunta.correct_answer];
     const randomAnswers = this.shuffleAnswers(allAnswers);
@@ -52,6 +57,9 @@ class Game extends React.Component {
                   type="button"
                   data-testid="correct-answer"
                   key={ index }
+                  name="correct"
+                  onClick={ this.styleHandleClick }
+                  style={ respondida ? { border: '3px solid rgb(6, 240, 15)' } : {} }
                 >
                   { element }
                 </button>
@@ -61,7 +69,10 @@ class Game extends React.Component {
               <button
                 type="button"
                 key={ index }
+                name="incorrect"
                 data-testid={ `wrong-answer-${index}` }
+                onClick={ this.styleHandleClick }
+                style={ respondida ? { border: '3px solid red' } : {} }
               >
                 { element }
               </button>
