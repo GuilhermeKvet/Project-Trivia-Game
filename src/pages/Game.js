@@ -11,7 +11,6 @@ class Game extends React.Component {
     respondida: false,
     countTimer: 30,
     answers: [],
-    disableBtn: false,
   }
 
   async componentDidMount() {
@@ -19,12 +18,17 @@ class Game extends React.Component {
     this.timer();
   }
 
+  componentDidUpdate() {
+    const { countTimer } = this.state;
+    if (countTimer === 0) {
+      clearInterval(this.timerInterval);
+    }
+  }
+
   timer = () => {
     const timeInMS = 1000;
-    const timeInMSTotal = 30000;
-    setInterval(() => this.setState((prev) => (
+    this.timerInterval = setInterval(() => this.setState((prev) => (
       { countTimer: prev.countTimer - 1 })), timeInMS);
-    setTimeout(() => this.setState({ disableBtn: true }), timeInMSTotal);
   }
 
   fetchTriviaApi = async () => {
@@ -73,10 +77,12 @@ class Game extends React.Component {
 
   triviaGame = () => {
     const { triviaGame: { results },
-      count, respondida, answers, disableBtn } = this.state;
+      count, respondida, answers, countTimer } = this.state;
     const objPergunta = results[count];
     const allAnswers = [...objPergunta.incorrect_answers, objPergunta.correct_answer];
     const randomAnswers = answers.length > 0 ? answers : this.shuffleAnswers(allAnswers);
+    const verdadeiro = true;
+    const falso = false;
     return (
       <div>
         <h2 data-testid="question-text">{ objPergunta.question }</h2>
@@ -92,7 +98,7 @@ class Game extends React.Component {
                   name="correct"
                   onClick={ this.handleClick }
                   style={ respondida ? { border: '3px solid rgb(6, 240, 15)' } : {} }
-                  disabled={ disableBtn }
+                  disabled={ countTimer === 0 ? verdadeiro : falso }
                 >
                   { element }
                 </button>
@@ -106,7 +112,7 @@ class Game extends React.Component {
                 data-testid={ `wrong-answer-${index}` }
                 onClick={ this.handleClick }
                 style={ respondida ? { border: '3px solid red' } : {} }
-                disabled={ disableBtn }
+                disabled={ countTimer === 0 ? verdadeiro : falso }
               >
                 { element }
               </button>
@@ -117,6 +123,25 @@ class Game extends React.Component {
     );
   };
 
+  sumCount = () => {
+    this.setState((prevState) => ({ count: prevState.count + 1,
+      answers: [],
+      respondida: false,
+      countTimer: 30 }));
+  }
+
+  handleNextButton = () => {
+    const { count } = this.state;
+    const { history } = this.props;
+    const four = 4;
+    if (count === four) {
+      history.push('/feedback');
+    } else {
+      this.timer();
+      this.sumCount();
+    }
+  }
+
   render() {
     const { triviaGame, countTimer, respondida } = this.state;
     return (
@@ -125,7 +150,14 @@ class Game extends React.Component {
         <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
         <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
         { (countTimer <= 0 || respondida)
-          && <button type="button" data-testid="btn-next">Next</button> }
+          && (
+            <button
+              type="button"
+              data-testid="btn-next"
+              onClick={ this.handleNextButton }
+            >
+              Next
+            </button>) }
       </div>
     );
   }
