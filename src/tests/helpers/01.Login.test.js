@@ -1,11 +1,17 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen, waitFor } from '@testing-library/react';
+import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import Login from '../../pages/Login';
 import renderWithRouterAndRedux from '../helpers/renderWithRouterAndRedux'
 import App from '../../App';
+import { tokenResponse } from '../../../cypress/mocks/token'
 
 describe("Testando a tela de login", () => {
+  beforeAll(() => {
+    global.fetch = jest.fn(async () => ({
+      json: async () => tokenResponse,
+    }))
+  })
   test('testa se é possível escrever o email da pessoa jogadora', () => {
     renderWithRouterAndRedux(<Login />);
     const inputName = screen.getByLabelText(/nome/i);
@@ -61,7 +67,7 @@ describe("Testando a tela de login", () => {
     expect(buttonPlay.disabled).toBe(false);
   });
 
-  test('Testa se ao clicar no botão Play é redirecionado para a url /game', () => {
+  test('Testa se ao clicar no botão Play é redirecionado para a url /game', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     const inputName = screen.getByLabelText(/nome/i);
     const inputEmail = screen.getByLabelText(/e-mail/i);
@@ -70,11 +76,14 @@ describe("Testando a tela de login", () => {
     userEvent.type(inputEmail, 'junior@junior.com');
     expect(buttonPlay.disabled).toBe(false);
     userEvent.click(buttonPlay);
-    waitFor(() => {
-      expect(
-        expect(history.location.pathname)
-      ).toBe('/gamedewd');
-    }, {setTimeout: 3000});
+    await waitForElementToBeRemoved(() => screen.getByRole('button', { name: /play/i }))
+    expect(history.location.pathname).toBe('/game');
+    // expect(localStorage.getItem("token")).toBe(tokenResponse.token);
+    // await waitFor(() => {
+    //   expect(
+    //     expect(inputName)
+    //   ).not.toBeInTheDocument();
+    // }, {setTimeout: 3000});
   });
 
   test('testa se a tela de configurações possui um título', () => {
