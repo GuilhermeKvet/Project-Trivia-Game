@@ -19,13 +19,6 @@ class Game extends React.Component {
     this.timer();
   }
 
-  // componentDidUpdate() {
-  //   const { countTimer } = this.state;
-  //   if (countTimer === 0) {
-  //     this.setState();
-  //   }
-  // }
-
   timer = () => {
     const timeInMS = 1000;
     const timeInMSTotal = 30000;
@@ -125,13 +118,14 @@ class Game extends React.Component {
   };
 
   render() {
-    const { triviaGame, countTimer } = this.state;
+    const { triviaGame, countTimer, respondida } = this.state;
     return (
       <div>
         <Header />
         <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
         <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
-        { countTimer <= 0 && <button type="button">Next</button> }
+        { (countTimer <= 0 || respondida)
+          && <button type="button" data-testid="btn-next">Next</button> }
       </div>
     );
   }
