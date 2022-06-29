@@ -61,7 +61,8 @@ class Game extends React.Component {
   };
 
   triviaGame = () => {
-    const { triviaGame: { results }, count, respondida, answers, disableBtn } = this.state;
+    const { triviaGame: { results },
+      count, respondida, answers, disableBtn } = this.state;
     const objPergunta = results[count];
     const allAnswers = [...objPergunta.incorrect_answers, objPergunta.correct_answer];
     const randomAnswers = answers.length > 0 ? answers : this.shuffleAnswers(allAnswers);
