@@ -6,7 +6,6 @@ class Game extends React.Component {
   state = {
     triviaGame: '',
     count: 0,
-    countArray: 0,
   }
 
   async componentDidMount() {
