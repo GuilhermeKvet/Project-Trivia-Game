@@ -78,12 +78,6 @@ describe("Testando a tela de login", () => {
     userEvent.click(buttonPlay);
     await waitForElementToBeRemoved(() => screen.getByRole('button', { name: /play/i }))
     expect(history.location.pathname).toBe('/game');
-    // expect(localStorage.getItem("token")).toBe(tokenResponse.token);
-    // await waitFor(() => {
-    //   expect(
-    //     expect(inputName)
-    //   ).not.toBeInTheDocument();
-    // }, {setTimeout: 3000});
   });
 
   test('testa se a tela de configurações possui um título', () => {
