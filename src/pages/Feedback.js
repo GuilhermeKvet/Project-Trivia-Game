@@ -5,6 +5,10 @@ import Header from '../components/Header';
 import { reset } from '../actions';
 
 class Feedback extends React.Component {
+  componentDidMount() {
+    this.setRanking();
+  }
+
   feedbackMessage = () => {
     const three = 3;
     const { player: { assertions } } = this.props;
@@ -21,6 +25,21 @@ class Feedback extends React.Component {
     const { dispatch, history } = this.props;
     dispatch(reset());
     history.push('/');
+  }
+
+  setRanking = () => {
+    const { player: { name, score, url } } = this.props;
+    if (localStorage.getItem('ranking') !== null) {
+      const token = localStorage.getItem('token');
+      const rankingObj = JSON.parse(localStorage.getItem('ranking'));
+      const { ranking } = rankingObj;
+      const newRanking = [...ranking, { name, score, url }];
+      localStorage.setItem('ranking', JSON.stringify({ ranking: newRanking, token }));
+    } else {
+      const token = localStorage.getItem('token');
+      const ranking = [{ name, score, url }];
+      localStorage.setItem('ranking', JSON.stringify({ ranking, token }));
+    }
   }
 
   render() {
@@ -58,8 +77,12 @@ const mapStateToProps = (state) => ({
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   player: PropTypes.objectOf.isRequired,
-  history: PropTypes.objectOf.isRequired,
+  history: PropTypes.objectOf,
   dispatch: PropTypes.func.isRequired,
+};
+
+Feedback.defaultProps = {
+  history: {},
 };
 
 export default connect(mapStateToProps)(Feedback);

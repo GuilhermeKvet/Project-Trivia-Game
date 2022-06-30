@@ -1,10 +1,11 @@
-import { ADD_USER, RESET, SCORE_USER } from '../actions';
+import { ADD_URL, ADD_USER, RESET, SCORE_USER } from '../actions';
 
 const INICIAL_STATE = {
   name: '',
   email: '',
   score: 0,
   assertions: 0,
+  url: '',
 };
 
 const userReducer = (state = INICIAL_STATE, action) => {
@@ -26,6 +27,11 @@ const userReducer = (state = INICIAL_STATE, action) => {
       ...state,
       score: 0,
       assertions: 0,
+    };
+  case ADD_URL:
+    return {
+      ...state,
+      url: action.url,
     };
   default:
     return state;
