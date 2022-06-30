@@ -1,6 +1,6 @@
 import React from 'react';
 import userEvent from '@testing-library/user-event';
-import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import renderWithRouterAndRedux from '../helpers/renderWithRouterAndRedux';
 import Feedback from '../../pages/Feedback';
 import App from '../../App';

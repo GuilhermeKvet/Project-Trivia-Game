@@ -31,7 +31,7 @@ class Ranking extends React.Component {
     return (
       <div>
         <h1 data-testid="ranking-title">Ranking</h1>
-        { this.renderRanking() }
+        { JSON.parse(localStorage.getItem('ranking')) && this.renderRanking() }
         <button
           data-testid="btn-go-home"
           type="button"
