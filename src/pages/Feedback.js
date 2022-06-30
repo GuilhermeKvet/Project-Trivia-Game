@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
+import { scoreUser } from '../actions';
 
 class Feedback extends React.Component {
   feedbackMessage = () => {
@@ -16,6 +17,12 @@ class Feedback extends React.Component {
     return message;
   }
 
+  resetGame = () => {
+    const { dispatch, history } = this.props;
+    dispatch(scoreUser(0, 0));
+    history.push('/');
+  }
+
   render() {
     const { player: { score, assertions } } = this.props;
     return (
@@ -25,6 +32,13 @@ class Feedback extends React.Component {
         <p data-testid="feedback-total-score">{ Number(score) }</p>
         <p data-testid="feedback-total-question">{ Number(assertions) }</p>
         <p data-testid="feedback-text">{ this.feedbackMessage() }</p>
+        <button
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.resetGame }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -37,6 +51,8 @@ const mapStateToProps = (state) => ({
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   player: PropTypes.objectOf.isRequired,
+  history: PropTypes.objectOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
