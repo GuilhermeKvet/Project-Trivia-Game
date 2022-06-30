@@ -39,4 +39,11 @@ describe('Desenvolva testes para atingir 90% de cobertura da tela de Feedback', 
     userEvent.click(btnRanking);
     expect(history.location.pathname).toBe('/ranking');
   })
+  test('Ao clicar no botão Play Again, é redirecionado para URL /', () => {
+    const { history } = renderWithRouterAndRedux(<App />, { player: { score: 100, assertions: 5 }}, '/feedback');
+    const btnPlay = screen.getByRole('button', { name: /play again/i });
+    expect(btnPlay).toBeInTheDocument();
+    userEvent.click(btnPlay);
+    expect(history.location.pathname).toBe('/');
+  })
 });
