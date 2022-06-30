@@ -4,7 +4,7 @@ import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/rea
 import Login from '../../pages/Login';
 import renderWithRouterAndRedux from '../helpers/renderWithRouterAndRedux'
 import App from '../../App';
-import { tokenResponse } from '../../../cypress/mocks/token'
+import { tokenResponse } from '../../../cypress/mocks/token';
 
 describe("Testando a tela de login", () => {
   beforeAll(() => {
