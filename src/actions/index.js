@@ -1,5 +1,6 @@
 export const ADD_USER = 'ADD_USER';
 export const SCORE_USER = 'SCORE_USER';
+export const RESET = 'RESET';
 
 export const fetchApi = async () => {
   const url = 'https://opentdb.com/api_token.php?command=request';
@@ -18,4 +19,8 @@ export const scoreUser = (score, assertions) => ({
   type: SCORE_USER,
   score,
   assertions,
+});
+
+export const reset = () => ({
+  type: RESET,
 });

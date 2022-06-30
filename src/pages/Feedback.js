@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
-import { scoreUser } from '../actions';
+import { reset } from '../actions';
 
 class Feedback extends React.Component {
   feedbackMessage = () => {
@@ -19,7 +19,7 @@ class Feedback extends React.Component {
 
   resetGame = () => {
     const { dispatch, history } = this.props;
-    dispatch(scoreUser(0, 0));
+    dispatch(reset());
     history.push('/');
   }
 
