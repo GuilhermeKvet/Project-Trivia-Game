@@ -137,6 +137,7 @@ class Game extends React.Component {
     if (count === four) {
       history.push('/feedback');
     } else {
+      clearInterval(this.timerInterval);
       this.timer();
       this.sumCount();
     }
