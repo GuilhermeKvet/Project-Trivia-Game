@@ -62,7 +62,7 @@ class Game extends React.Component {
     const { triviaGame: { results }, countTimer, count } = this.state;
     const { difficulty } = results[count];
     let score = 0;
-    let correct = 0;
+    let assertions = 0;
     this.setState({ respondida: true });
     if (target.name === 'correct') {
       if (difficulty === 'hard') {
@@ -72,9 +72,9 @@ class Game extends React.Component {
       } else {
         score = TEN + countTimer;
       }
-      correct = 1;
+      assertions = 1;
     }
-    dispatch(scoreUser(score, correct));
+    dispatch(scoreUser(score, assertions));
   };
 
   triviaGame = () => {

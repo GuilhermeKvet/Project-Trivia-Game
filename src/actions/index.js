@@ -14,8 +14,8 @@ export const addUser = (name, email) => ({
   email,
 });
 
-export const scoreUser = (score, correct) => ({
+export const scoreUser = (score, assertions) => ({
   type: SCORE_USER,
   score,
-  correct,
+  assertions,
 });

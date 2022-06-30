@@ -4,7 +4,7 @@ const INICIAL_STATE = {
   name: '',
   email: '',
   score: 0,
-  correct: 0,
+  assertions: 0,
 };
 
 const userReducer = (state = INICIAL_STATE, action) => {
@@ -19,7 +19,7 @@ const userReducer = (state = INICIAL_STATE, action) => {
     return {
       ...state,
       score: state.score + action.score,
-      correct: state.correct + action.correct,
+      assertions: state.assertions + action.assertions,
     };
   default:
     return state;
