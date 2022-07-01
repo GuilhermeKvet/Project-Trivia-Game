@@ -93,10 +93,17 @@ describe('Verifica se os testes cobrem 90% da tela de Jogo', () => {
     }
     expect(history.location.pathname).toBe('/feedback');
   })
-  test('Valida se o timer ao chegar no 0, o contador para', async () => {
+  test('Valida se o timer está sendo contado em ordem decrescente', async () => {
     localStorage.setItem('token', tokenResponse.token);
     renderWithRouterAndRedux(<App />, {}, '/game');
-    await new Promise((r) => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 32000));
     expect(screen.getByText('29')).toBeInTheDocument();
   })
+  test('Valida se quando o timer chegar a 0, mostra o texto "Acabou o tempo"', async () => {
+    localStorage.setItem('token', tokenResponse.token);
+    renderWithRouterAndRedux(<App />, {}, '/game');
+    await waitFor(() => {
+      expect(screen.getByText('Acabou o tempo')).toBeInTheDocument()
+    }, { timeout: 32000 })
+  }, 32500) 
 });
