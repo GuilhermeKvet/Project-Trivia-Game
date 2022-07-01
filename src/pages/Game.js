@@ -14,8 +14,13 @@ class Game extends React.Component {
   }
 
   async componentDidMount() {
-    await this.fetchTriviaApi();
-    this.timer();
+    if (localStorage.getItem('token')) {
+      await this.fetchTriviaApi();
+      this.timer();
+    } else {
+      const { history } = this.props;
+      history.push('/');
+    }
   }
 
   componentDidUpdate() {
