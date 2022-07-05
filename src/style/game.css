@@ -3,5 +3,5 @@
 }
 
 .flex-trivia-game {
-  margin: 100px;
+  display: flex;
 }

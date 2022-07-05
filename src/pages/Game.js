@@ -157,7 +157,9 @@ class Game extends React.Component {
       <div>
         <Header />
         <div className="flex-trivia-game">
-          <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
+          <div className="flex-trivia-game-timer">
+            <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
+          </div>
           <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
           { (countTimer <= 0 || respondida)
           && (

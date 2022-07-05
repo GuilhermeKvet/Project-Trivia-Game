@@ -13,9 +13,6 @@
   justify-content: center;
 }
 
-.flex-container-input-name, .flex-container-input-email {
-}
-
 .flex-buttons {
   background-color: orange;
   border: black solid 2px;
