@@ -2,13 +2,11 @@
 
   /* background-image: url('https://jhgarrett.github.io/TriviaGame/assets/images/trivia2.gif'); */
   background-color: aqua;
-  background-repeat: initial;
   margin: 0 auto;
 }
 
 .flex-container-input {
   align-items: center;
-  border: 2px solid black;
   display: flex;
   flex-flow: column nowrap;
   height: 100vh;
@@ -16,12 +14,26 @@
 }
 
 .flex-container-input-name, .flex-container-input-email {
-  width: 100%;
 }
 
 .flex-buttons {
+  background-color: orange;
+  border: black solid 2px;
   box-shadow: 2px;
   flex-flow: row nowrap;
   justify-content: center;
   padding: 5px;
+  width: 16%;
+}
+
+button {
+  background-color: red;
+  font-weight: 600;
+  margin: 2px;
+  padding: 3px;
+  width: 100%;
+}
+
+input {
+  margin-left: 5px;
 }
