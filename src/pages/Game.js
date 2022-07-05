@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { scoreUser } from '../actions';
 
+import '../style/game.css';
+
 class Game extends React.Component {
   state = {
     triviaGame: '',
@@ -11,7 +13,7 @@ class Game extends React.Component {
     respondida: false,
     countTimer: 30,
     answers: [],
-  }
+  };
 
   async componentDidMount() {
     if (localStorage.getItem('token')) {
@@ -32,9 +34,11 @@ class Game extends React.Component {
 
   timer = () => {
     const timeInMS = 1000;
-    this.timerInterval = setInterval(() => this.setState((prev) => (
-      { countTimer: prev.countTimer - 1 })), timeInMS);
-  }
+    this.timerInterval = setInterval(
+      () => this.setState((prev) => ({ countTimer: prev.countTimer - 1 })),
+      timeInMS,
+    );
+  };
 
   fetchTriviaApi = async () => {
     const { history } = this.props;
@@ -58,22 +62,26 @@ class Game extends React.Component {
     }
     this.setState({ answers: arr });
     return arr;
-  }
+  };
 
   handleClick = ({ target }) => {
     const TEN = 10;
     const three = 3;
     const { dispatch } = this.props;
-    const { triviaGame: { results }, countTimer, count } = this.state;
+    const {
+      triviaGame: { results },
+      countTimer,
+      count,
+    } = this.state;
     const { difficulty } = results[count];
     let score = 0;
     let assertions = 0;
     this.setState({ respondida: true });
     if (target.name === 'correct') {
       if (difficulty === 'hard') {
-        score = TEN + (countTimer * three);
+        score = TEN + countTimer * three;
       } else if (difficulty === 'medium') {
-        score = TEN + (countTimer * 2);
+        score = TEN + countTimer * 2;
       } else {
         score = TEN + countTimer;
       }
@@ -83,18 +91,26 @@ class Game extends React.Component {
   };
 
   triviaGame = () => {
-    const { triviaGame: { results },
-      count, respondida, answers, countTimer } = this.state;
+    const {
+      triviaGame: { results },
+      count,
+      respondida,
+      answers,
+      countTimer,
+    } = this.state;
     const objPergunta = results[count];
-    const allAnswers = [...objPergunta.incorrect_answers, objPergunta.correct_answer];
+    const allAnswers = [
+      ...objPergunta.incorrect_answers,
+      objPergunta.correct_answer,
+    ];
     const randomAnswers = answers.length > 0 ? answers : this.shuffleAnswers(allAnswers);
     const verdadeiro = true;
     const falso = false;
 
     return (
       <div>
-        <h2 data-testid="question-text">{ objPergunta.question }</h2>
-        <p data-testid="question-category">{ objPergunta.category }</p>
+        <h2 data-testid="question-text">{objPergunta.question}</h2>
+        <p data-testid="question-category">{objPergunta.category}</p>
         <div data-testid="answer-options">
           {randomAnswers.map((element, index) => {
             if (element === objPergunta.correct_answer) {
@@ -105,10 +121,12 @@ class Game extends React.Component {
                   key={ index }
                   name="correct"
                   onClick={ this.handleClick }
-                  style={ respondida ? { border: '3px solid rgb(6, 240, 15)' } : {} }
+                  style={
+                    respondida ? { border: '3px solid rgb(6, 240, 15)' } : {}
+                  }
                   disabled={ countTimer === 0 ? verdadeiro : falso }
                 >
-                  { element }
+                  {element}
                 </button>
               );
             }
@@ -122,7 +140,7 @@ class Game extends React.Component {
                 style={ respondida ? { border: '3px solid red' } : {} }
                 disabled={ countTimer === 0 ? verdadeiro : falso }
               >
-                { element }
+                {element}
               </button>
             );
           })}
@@ -132,11 +150,13 @@ class Game extends React.Component {
   };
 
   sumCount = () => {
-    this.setState((prevState) => ({ count: prevState.count + 1,
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
       answers: [],
       respondida: false,
-      countTimer: 30 }));
-  }
+      countTimer: 30,
+    }));
+  };
 
   handleNextButton = () => {
     const { count } = this.state;
@@ -149,7 +169,7 @@ class Game extends React.Component {
       this.timer();
       this.sumCount();
     }
-  }
+  };
 
   render() {
     const { triviaGame, countTimer, respondida } = this.state;
@@ -160,16 +180,18 @@ class Game extends React.Component {
           <div className="flex-trivia-game-timer">
             <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
           </div>
-          <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
-          { (countTimer <= 0 || respondida)
-          && (
+          <div className="flex-trivia-game-questions">
+            {Boolean(triviaGame.results) && this.triviaGame()}
+          </div>
+          {(countTimer <= 0 || respondida) && (
             <button
               type="button"
               data-testid="btn-next"
               onClick={ this.handleNextButton }
             >
               Next
-            </button>) }
+            </button>
+          )}
         </div>
       </div>
     );
