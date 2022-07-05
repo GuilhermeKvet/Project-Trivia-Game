@@ -188,6 +188,7 @@ class Game extends React.Component {
               type="button"
               data-testid="btn-next"
               onClick={ this.handleNextButton }
+              className="flex-btn-single"
             >
               Next
             </button>

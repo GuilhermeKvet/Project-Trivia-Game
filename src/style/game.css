@@ -7,4 +7,6 @@
   flex-flow: column nowrap;
   height: 80vh;
   justify-content: center;
+  width: 60vw;
 }
+
