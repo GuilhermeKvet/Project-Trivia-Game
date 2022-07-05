@@ -10,3 +10,8 @@
   width: 60vw;
 }
 
+.flex-btn-single {
+  box-shadow: 2px 5px #958;
+  margin: 0 auto;
+  width: 50%;
+}
