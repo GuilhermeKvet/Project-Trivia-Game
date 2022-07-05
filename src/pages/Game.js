@@ -90,6 +90,7 @@ class Game extends React.Component {
     const randomAnswers = answers.length > 0 ? answers : this.shuffleAnswers(allAnswers);
     const verdadeiro = true;
     const falso = false;
+
     return (
       <div>
         <h2 data-testid="question-text">{ objPergunta.question }</h2>
@@ -155,9 +156,10 @@ class Game extends React.Component {
     return (
       <div>
         <Header />
-        <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
-        <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
-        { (countTimer <= 0 || respondida)
+        <div className="flex-trivia-game">
+          <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
+          <div>{ Boolean(triviaGame.results) && this.triviaGame() }</div>
+          { (countTimer <= 0 || respondida)
           && (
             <button
               type="button"
@@ -166,6 +168,7 @@ class Game extends React.Component {
             >
               Next
             </button>) }
+        </div>
       </div>
     );
   }

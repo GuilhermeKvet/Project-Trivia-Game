@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { addUrl } from '../actions';
 
+import '../style/header.css';
+
 class Header extends React.Component {
   componentDidMount() {
     this.getGravatarHash();
@@ -19,7 +21,7 @@ class Header extends React.Component {
   render() {
     const { player: { name, score } } = this.props;
     return (
-      <div>
+      <div className="flex-header">
         <img
           data-testid="header-profile-picture"
           src={ this.url }

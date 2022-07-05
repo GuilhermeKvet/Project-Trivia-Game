@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { fetchApi, addUser } from '../actions';
 
+import '../style/login.css';
+
 class Login extends React.Component {
   state = {
     email: '',
@@ -35,44 +37,50 @@ class Login extends React.Component {
     const { name, email } = this.state;
     const { history } = this.props;
     return (
-      <div>
-        <label htmlFor="name">
-          Nome
-          <input
-            id="name"
-            type="text"
-            data-testid="input-player-name"
-            value={ name }
-            onChange={ this.handleChange }
-          />
-        </label>
+      <div className="flex-container-input">
+        <div className="flex-container-input-name">
+          <label htmlFor="name">
+            Nome
+            <input
+              id="name"
+              type="text"
+              data-testid="input-player-name"
+              value={ name }
+              onChange={ this.handleChange }
+            />
+          </label>
+        </div>
         <br />
-        <label htmlFor="email">
-          E-mail
-          <input
-            id="email"
-            type="email"
-            value={ email }
-            onChange={ this.handleChange }
-            data-testid="input-gravatar-email"
-          />
-        </label>
+        <div className="flex-container-input-email">
+          <label htmlFor="email">
+            E-mail
+            <input
+              id="email"
+              type="email"
+              value={ email }
+              onChange={ this.handleChange }
+              data-testid="input-gravatar-email"
+            />
+          </label>
+        </div>
         <br />
-        <button
-          type="button"
-          data-testid="btn-play"
-          disabled={ this.habilitaBtn() }
-          onClick={ this.receiveToken }
-        >
-          Play
-        </button>
-        <button
-          type="button"
-          data-testid="btn-settings"
-          onClick={ () => history.push('/config') }
-        >
-          Configurações
-        </button>
+        <div className="flex-buttons">
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.habilitaBtn() }
+            onClick={ this.receiveToken }
+          >
+            Play
+          </button>
+          <button
+            type="button"
+            data-testid="btn-settings"
+            onClick={ () => history.push('/config') }
+          >
+            Configurações
+          </button>
+        </div>
       </div>
     );
   }

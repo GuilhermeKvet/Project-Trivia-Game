@@ -1,0 +1,27 @@
+* {
+
+  /* background-image: url('https://jhgarrett.github.io/TriviaGame/assets/images/trivia2.gif'); */
+  background-color: aqua;
+  background-repeat: initial;
+  margin: 0 auto;
+}
+
+.flex-container-input {
+  align-items: center;
+  border: 2px solid black;
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100vh;
+  justify-content: center;
+}
+
+.flex-container-input-name, .flex-container-input-email {
+  width: 100%;
+}
+
+.flex-buttons {
+  box-shadow: 2px;
+  flex-flow: row nowrap;
+  justify-content: center;
+  padding: 5px;
+}

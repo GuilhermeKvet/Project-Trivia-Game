@@ -1,0 +1,9 @@
+* {
+  margin: 0 auto;
+}
+
+.flex-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
