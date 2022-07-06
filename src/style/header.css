@@ -4,6 +4,10 @@
 
 .flex-header {
   align-items: center;
+  color: white;
   display: flex;
+  font-size: 1.5em;
   justify-content: space-between;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }

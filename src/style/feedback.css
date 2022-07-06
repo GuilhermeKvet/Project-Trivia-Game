@@ -1,0 +1,13 @@
+.feedback-container {
+  color: white;
+  font-family: Arial , Helvetica , sans-serif;
+}
+
+.btns-feedback {
+  cursor: pointer;
+  width: 100px;
+}
+
+.space-text {
+  margin: 10px 0;
+}

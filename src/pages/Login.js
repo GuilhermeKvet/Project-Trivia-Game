@@ -39,6 +39,7 @@ class Login extends React.Component {
     return (
       <div className="flex-container-input">
         <div className="flex-container-input-name">
+          <h1 className="title-login">TRIVIA GAME</h1>
           <label htmlFor="name">
             Nome
             <input

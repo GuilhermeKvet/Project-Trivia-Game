@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { reset } from '../actions';
+import '../style/feedback.css';
 
 class Feedback extends React.Component {
   componentDidMount() {
@@ -47,24 +48,43 @@ class Feedback extends React.Component {
     return (
       <div>
         <Header />
-        <h1>Feedback</h1>
-        <p data-testid="feedback-total-score">{ Number(score) }</p>
-        <p data-testid="feedback-total-question">{ Number(assertions) }</p>
-        <p data-testid="feedback-text">{ this.feedbackMessage() }</p>
-        <button
-          data-testid="btn-play-again"
-          type="button"
-          onClick={ this.resetGame }
-        >
-          Play Again
-        </button>
-        <button
-          data-testid="btn-ranking"
-          type="button"
-          onClick={ () => history.push('/ranking') }
-        >
-          Ranking
-        </button>
+        <div className="feedback-container">
+          <h1 className="space-text">Feedback</h1>
+          <p
+            data-testid="feedback-total-score"
+            className="space-text"
+          >
+            { Number(score) }
+          </p>
+          <p
+            data-testid="feedback-total-question"
+            className="space-text"
+          >
+            { Number(assertions) }
+          </p>
+          <p
+            data-testid="feedback-text"
+            className="space-text"
+          >
+            { this.feedbackMessage() }
+          </p>
+          <button
+            data-testid="btn-play-again"
+            type="button"
+            onClick={ this.resetGame }
+            className="btns-feedback"
+          >
+            Play Again
+          </button>
+          <button
+            data-testid="btn-ranking"
+            type="button"
+            onClick={ () => history.push('/ranking') }
+            className="btns-feedback"
+          >
+            Ranking
+          </button>
+        </div>
       </div>
     );
   }

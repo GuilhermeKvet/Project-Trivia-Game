@@ -109,9 +109,9 @@ class Game extends React.Component {
 
     return (
       <div>
-        <h2 data-testid="question-text">{objPergunta.question}</h2>
-        <p data-testid="question-category">{objPergunta.category}</p>
-        <div data-testid="answer-options">
+        <h2 data-testid="question-text" className="question">{objPergunta.question}</h2>
+        <p data-testid="question-category" className="question">{objPergunta.category}</p>
+        <div data-testid="answer-options" className="question alternatives">
           {randomAnswers.map((element, index) => {
             if (element === objPergunta.correct_answer) {
               return (
@@ -125,6 +125,7 @@ class Game extends React.Component {
                     respondida ? { border: '3px solid rgb(6, 240, 15)' } : {}
                   }
                   disabled={ countTimer === 0 ? verdadeiro : falso }
+                  className="btn-alternative"
                 >
                   {element}
                 </button>
@@ -139,6 +140,7 @@ class Game extends React.Component {
                 onClick={ this.handleClick }
                 style={ respondida ? { border: '3px solid red' } : {} }
                 disabled={ countTimer === 0 ? verdadeiro : falso }
+                className="btn-alternative"
               >
                 {element}
               </button>
@@ -178,7 +180,7 @@ class Game extends React.Component {
         <Header />
         <div className="flex-trivia-game">
           <div className="flex-trivia-game-timer">
-            <p>{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
+            <p className="counter">{countTimer <= 0 ? 'Acabou o tempo' : countTimer}</p>
           </div>
           <div className="flex-trivia-game-questions">
             {Boolean(triviaGame.results) && this.triviaGame()}
